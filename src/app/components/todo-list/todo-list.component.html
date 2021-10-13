@@ -1,0 +1,71 @@
+<div class="row justify-content-between px-3">
+  <input
+    class="search-box rounded-border col-sm-12 col-md-9 my-2 mr-2"
+    [(ngModel)]="searchText"
+    placeholder="Search for tasks here"
+    autofocus
+  />
+  <button
+    class="add-task rounded-border my-2 col-md-2 btn-primary"
+    (click)="openModalAddTask(content)"
+  >
+    Add Tasks
+  </button>
+</div>
+<ng-template #content>
+  <div><app-add-task (taskAddedEvent)="onTaskAdded()"></app-add-task></div>
+</ng-template>
+<ng-template #spinnerLoader>
+  <div class="d-flex justify-content-center mt-5">
+    <div class="spinner-grow text-secondary" role="status"></div>
+  </div>
+</ng-template>
+<div *ngIf="!(isLoading | async); else spinnerLoader">
+  <div
+    class="d-flex flex-column my-3"
+    *ngFor="let item of todoList; let i = index"
+  >
+    <div
+      class="align-self-center rounded-border date my-3 py-2 px-2"
+      *ngIf="(item.taskList | searchFilter: searchText).length > 0"
+    >
+      {{
+        (item.createdAt | dayFilter) === "Today" ||
+        (item.createdAt | dayFilter) === "Yesterday"
+          ? (item.createdAt | dayFilter)
+          : (item.createdAt | dayFilter | date)
+      }}
+    </div>
+    <div
+      [ngClass]="{ 'bg-grey': isTaskComplete(i, j) }"
+      class="
+        d-flex
+        btn-light
+        task-text
+        my-2
+        flex-column
+        justify-content-center
+        py-2
+      "
+      *ngFor="
+        let task of item.taskList | searchFilter: searchText;
+        let j = index
+      "
+    >
+      <div class="pl-2 d-flex align-items-center">
+        <input
+          role="checkbox"
+          type="checkbox"
+          class="check-box"
+          (click)="toggleCheck(i, j)"
+        />
+        <span role="button" (click)="toggleAccordian(i, j)" class="pl-2">{{
+          task.taskName
+        }}</span>
+      </div>
+      <div class="pl-4 ml-1 pt-2" *ngIf="activeAccordian === i + '' + j">
+        {{ task.taskDescription }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="p-4">
+  <h6>Add New Task</h6>
+  <hr />
+  <form
+    (ngSubmit)="onSubmit()"
+    class="d-flex flex-column"
+    [formGroup]="taskForm"
+  >
+    <div class="row-12 d-flex flex-column mb-3">
+      <label class="label">Task Name </label>
+      <input
+        class="row-12 rounded task-name"
+        onkeypress="return /[a-z, ]/i.test(event.key)"
+        type="text"
+        formControlName="taskName"
+        placeholder="Enter Task name"
+      />
+      <div
+        *ngIf="
+          taskForm.controls['taskName'].errors?.required &&
+          taskForm.controls['taskName'].touched
+        "
+        class="alert-note text-danger"
+      >
+        Name is required.
+      </div>
+    </div>
+    <div class="row-12 d-flex flex-column">
+      <label class="label">Task Description</label>
+      <textarea
+        class="row-12 rounded task-detail"
+        rows="5"
+        formControlName="taskDescription"
+        placeholder="Enter Task description here"
+      ></textarea>
+      <div class="alert-note text-muted font-size-sm">Max character 250</div>
+      <div
+        *ngIf="
+          taskForm.controls['taskDescription'].invalid &&
+          taskForm.controls['taskDescription'].touched
+        "
+        class="alert-note text-danger"
+      >
+        Task description must be between 50 and 250 characters long.
+      </div>
+    </div>
+    <button
+      [disabled]="taskForm.invalid"
+      class="
+        add-task
+        rounded-border
+        my-2
+        col-md-2
+        align-self-center
+        btn-primary
+      "
+    >
+      Add Tasks
+    </button>
+  </form>
+</div>

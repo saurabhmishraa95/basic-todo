@@ -1,0 +1,33 @@
+.label{
+    font-size: small;
+    font-weight: bold;
+}
+.rounded-border{
+    border-radius: 2rem;
+    border: 0;
+}
+.alert-note{
+    font-size: x-small;
+    font-weight: bold;
+}
+.add-task{
+    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: medium;
+    min-width: 10rem;
+    font-weight: bold;
+}
+.task-name{
+    height: 2.5rem;
+    font-weight: 400;
+    font-size: small;
+    border: 2px solid rgb(179, 175, 175);
+}
+
+.task-detail{
+    height: 8rem;
+    font-size: small;
+    font-weight: 400;
+    border: 2px solid rgb(179, 175, 175);
+}
